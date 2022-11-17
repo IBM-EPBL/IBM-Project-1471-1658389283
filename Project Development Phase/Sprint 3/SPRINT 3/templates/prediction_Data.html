@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RainFall Prediction</title>
+
+<meta name="description" content="Page Description Here" />
+<!--<meta http-equiv="X-UA-Compatible content="IE=edge">-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<!-- CSS File-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<!-- <link rel="stylesheet" href="style.css"> -->
+
+
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+</head>
+
+<body>
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><span class="font-weight-bold">Predict Rainfall</span></div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class = "card">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Enter the Details for Prediction</h4>
+                        </div>
+                        <form action="{{ url_for('predict')}}" method="POST">
+                        <h5>Temperature</h5>
+                        <div class="row mt-1">
+                            <div class="col-md-6"><label class="labels">MinTemp</label><input name="MinTemp" type="number" class="form-control" placeholder=""  value="" id="MinTemp" required></div>
+                            <div class="col-md-6"><label class="labels">MaxTemp</label><input name="MaxTemp" type="number" class="form-control" value="" placeholder="" id="MaxTemp" required></div>
+                        </div>
+                        <div class="row mt-4-3">
+                            <div class="col-md-6"><label class="labels">Temp9am</label><input name="Temp9am" type="number" class="form-control" placeholder=""  value="" id="Temp9am" required></div>
+                            <div class="col-md-6"><label class="labels">Temp3pm</label><input name="Temp3pm" type="number" class="form-control" value="" placeholder="" id="Temp3pm" required></div>
+                        </div> <br>
+
+                        <h5>Rainfall</h5>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Rainfall</label><input name="Rainfall" type="number" class="form-control" placeholder=""  value="" id="Rainfall" required></div>
+                        </div><br>
+                       
+                       
+                        
+                            <h5>Wind Speed</h5>
+                            <div class="row mt-4-0">
+                                <div class="col-md-6"><label class="labels">WindSpeed9am</label><input name="WindSpeed9am" type="number" class="form-control" placeholder=""  value="" id="WindSpeed9am" required></div>
+                                <div class="col-md-6"><label class="labels">WindSpeed3pm</label><input name="WindSpeed3pm" type="number" class="form-control" value="" placeholder="" id="WindSpeed3pm" required></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6"><label class="labels">WindGustSpeed</label><input name="WindGustSpeed" type="number" class="form-control" placeholder=""  value="" id="WindGustSpeed" required></div>
+                            </div><br>
+                            <h5>Humidity</h5>
+                            <div class="row mt-4-1">
+                                <div class="col-md-6"><label class="labels">Humidity9am</label><input name="Humidity9am" type="number" class="form-control" placeholder=""  value="" id="Humidity9am" required></div>
+                                <div class="col-md-6"><label class="labels">Humidity3pm</label><input name="Humidity3pm" type="number" class="form-control" value="" placeholder="" id="Humidity3pm" required></div>
+                            </div> <br>
+                            <h5>Pressure</h5>
+                            <div class="row mt-4-2">
+                                <div class="col-md-6"><label class="labels">Pressure9am</label><input name="Pressure9am" type="number" class="form-control" placeholder=""  value="" id="Pressure9am" required></div>
+                                <div class="col-md-6"><label class="labels">Pressure3pm</label><input name="Pressure3pm" type="number" class="form-control" value="" placeholder="" id="Pressure3pm" required></div>
+                            </div>
+                            
+                                
+                        
+                        <div class="row mt-5">
+                            <h5>Wind Direction</h5>
+                           
+                            
+                            <div class="col-md-6"><label class="labels">WindDir9am</label>
+                                <select name="WindDir9am" class="form-control" id="WindDir9am" required>
+                                    <option value="0">N</option>
+                                    <option value="1">E</option>  
+                                    <option value="2">S</option> 
+                                    <option value="3">W</option>
+                                    <option value="4">NE</option>
+                                    <option value="5">NW</option>
+                                    <option value="6">SE</option>
+                                    <option value="7">SW</option>
+                                    <option value="8">NNE</option>
+                                    <option value="9">NNW</option>
+                                    <option value="10">ENE</option>
+                                    <option value="11">ESE</option>
+                                    <option value="12">SSE</option>
+                                    <option value="13">SSW</option>
+                                    <option value="14">WNW</option>
+                                    <option value="15">WSW</option>                 
+                                    </select></div>
+                         
+                            <div class="col-md-6"><label class="labels">WindDir3pm</label>
+                                <select name="WindDir3pm" class="form-control" id="WindDir3pm" required>
+                                    <option value="0">N</option>
+                                    <option value="1">E</option>  
+                                    <option value="2">S</option> 
+                                    <option value="3">W</option>
+                                    <option value="4">NE</option>
+                                    <option value="5">NW</option>
+                                    <option value="6">SE</option>
+                                    <option value="7">SW</option>
+                                    <option value="8">NNE</option>
+                                    <option value="9">NNW</option>
+                                    <option value="10">ENE</option>
+                                    <option value="11">ESE</option>
+                                    <option value="12">SSE</option>
+                                    <option value="13">SSW</option>
+                                    <option value="14">WNW</option>
+                                    <option value="15">WSW</option>                
+                                    </select></div>
+
+                                    <div class="col-md-6"><label class="labels">WindGustDir</label>
+                                        <select name="WindGustDir" class="form-control" id="WindGustDir" required>
+                                            <option value="0">N</option>
+                                            <option value="1">E</option>  
+                                            <option value="2">S</option> 
+                                            <option value="3">W</option>
+                                            <option value="4">NE</option>
+                                            <option value="5">NW</option>
+                                            <option value="6">SE</option>
+                                            <option value="7">SW</option>
+                                            <option value="8">NNE</option>
+                                            <option value="9">NNW</option>
+                                            <option value="10">ENE</option>
+                                            <option value="11">ESE</option>
+                                            <option value="12">SSE</option>
+                                            <option value="13">SSW</option>
+                                            <option value="14">WNW</option>
+                                            <option value="15">WSW</option>
+                                            </select></div>
+                        </div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Predict</button></div>
+                    </div></form></div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
