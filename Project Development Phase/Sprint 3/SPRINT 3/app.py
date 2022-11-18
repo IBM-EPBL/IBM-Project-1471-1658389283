@@ -148,9 +148,9 @@ def predict():
 
     feature_values = [np.array(feature_values)]
 
-    data = pandas.DataFrame(feature_values, columns=[column_names])
-    data = scaler.fit_transform(data)
-    data = pandas.DataFrame(data, columns=[column_names])
+    #data = pandas.DataFrame(feature_values, columns=[column_names])
+    #data = scaler.fit_transform(data)
+    #data = pandas.DataFrame(data, columns=[column_names])
     prediction = model.predict(data)
     print(f"prediction: {prediction}")
 
